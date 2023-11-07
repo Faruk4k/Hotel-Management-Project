@@ -1,0 +1,115 @@
+Create table Rooms (
+  	room_number INTEGER PRIMARY KEY,
+  	capacity 	INTEGER,
+    	type		VARCHAR(20),
+);
+
+Create table Staff_Rooms (
+	  staff_room_id	VARCHAR(8) PRIMARY KEY,
+  	room_number INTEGER,
+	  staff_id	VARCHAR(8),
+  	staff_start DATE,
+  	staff_end DATE,
+	  FOREIGN KEY (staff_id) REFERENCES Regular_employee ON DELETE CASCADE ON UPDATE SET DEFAULT,
+  	FOREIGN KEY (staff_booking_id) REFERENCES Regular_employee ON DELETE CASCADE ON UPDATE SET DEFAULT,
+  	FOREIGN KEY (room_number) REFERENCES Rooms ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Customer_Rooms (
+	  customer_room_id	VARCHAR(8) PRIMARY KEY,
+  	room_number INTEGER, 
+  	inspection_check 	BOOLEAN,
+  	pricing 	INTEGER,
+  	FOREIGN KEY (room_number) REFERENCES Rooms ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table User (
+  	user_id	VARCHAR(8) PRIMARY KEY,
+	  first_name VARCHAR(20),
+  	last_name VARCHAR(20),
+  	gender	  VARCHAR(20),
+    date_of_birth DATE,
+  	phone_number  VARCHAR(20),
+  	username 	VARCHAR(20),
+  	password 	VARCHAR(20),
+  	UNIQUE (username)
+);
+
+Create table Customer (
+	  customer_id VARCHAR(20) PRIMARY KEY,
+    user_id		VARCHAR(8),
+	  budget 	    INTEGER,
+    FOREIGN KEY (user_id) REFERENCES User ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Employee (
+	  eid VARCHAR(8) PRIMARY KEY,
+	  user_id VARCHAR(8),
+  	salary		INTEGER,
+  	contract_start	DATE,
+  	contract_end	DATE,
+  	FOREIGN KEY (user_id) REFERENCES User ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Admin (
+ 	  admin_id VARCHAR(8) PRIMARY KEY,
+	  eid VARCHAR(8),
+  	booking_management BOOLEAN,
+  	schedule_management BOOLEAN,
+  	FOREIGN KEY (eid) REFERENCES Employee ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Regular_employee (
+	  staff_id VARCHAR(8) PRIMARY KEY,
+  	eid VARCHAR(8),
+  	department CHAR(100),
+  	FOREIGN KEY (eid) REFERENCES Employee ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table returning_customer (
+  	ret_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	  customer_id VARCHAR(8),
+  	booking_count	INTEGER,
+  	FOREIGN KEY (customer_id) REFERENCES Customer ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table new_customer (
+ 	  new_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	  customer_id VARCHAR(8),
+    FOREIGN KEY (customer_id) REFERENCES Customer ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Books (
+	book_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	customer_id VARCHAR(8),
+	customer_room_id VARCHAR(8),
+	start_date DATE, 
+	end_date DATE,
+	FOREIGN KEY (customer_id) REFERENCES Customer ON DELETE CASCADE ON UPDATE SET DEFAULT,
+	FOREIGN KEY (customer_room_id) REFERENCES Customer_Rooms ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Manages_Facility (
+	facility_management INTEGER AUTO_INCREMENT PRIMARY KEY,
+	admin_id VARCHAR(8),
+	room_number INTEGER,
+	FOREIGN KEY (admin_id) REFERENCES Admin ON DELETE CASCADE ON UPDATE SET DEFAULT,
+	FOREIGN KEY (room_number) REFERENCES Rooms ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Manages_Workers (
+	workers_management INTEGER AUTO_INCREMENT PRIMARY KEY,
+	admin_id VARCHAR(8),
+	staff_id VARCHAR(8),
+	FOREIGN KEY (admin_id) REFERENCES Admin ON DELETE CASCADE ON UPDATE SET DEFAULT,
+	FOREIGN KEY (staff_id) REFERENCES Regular_employee ON DELETE CASCADE ON UPDATE SET DEFAULT
+);
+
+Create table Inspects (
+	inspect_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	staff_id VARCHAR(8),
+	room_number INTEGER,
+	date_of_inspetion DATE,
+	FOREIGN KEY (staff_id) REFERENCES Regular_employee ON DELETE CASCADE ON UPDATE SET DEFAULT,
+	FOREIGN KEY (room_number) REFERENCES Rooms ON DELETE CASCADE ON UPDATE SET DEFAULT
+);

@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(238, 217, 196);
+    font-size: 16px;
+    font-family: serif;
+}
+
+
+.paragraph-container {
+    font-size: 16px;
+    line-height: 1.4;
+    color: rgb(0, 0, 0);;
+    margin-left: 150px; 
+}
+
+
+h1 {
+    font-size: 24px;
+    color: #000000;
+    text-align: left; 
+}
+
+
+
+.page-bar {
+    position: absolute;
+    overflow:initial;
+    background-color: black;
+    color: beige;
+    height: 100px;
+    text-align: center;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex; 
+    align-items: center; 
+}
+
+.address {
+    text-align: center; 
+}
+
+.imprint-link{
+    margin-right: 2% ;
+}

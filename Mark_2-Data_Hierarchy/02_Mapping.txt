@@ -1,0 +1,12 @@
+1) A customer can book 1 or many customer rooms and one customer room can be either free or booked by single customer during a given time frame. 
+In our case there is not an alternative, since we would not want to limit customers to book only one room.
+
+2)We have two types of admins(receptionist and managers) that both have different permissions. A receptionist can only manage rooms and bookings while the manager has access to employee information as well.
+With that said, the second relation a room can be managed by one or more admins and admin can manage one or more rooms. There are no alternatives in our case here too.
+
+3)admin with special permission (managers) can manage multiple or one employees and an employee can be managed by one or many admins.
+In our case our admins have responsibility for all employees and all of them not for a certain department. In the case that we are left with just one admin 
+at a certain period, then one to many relationship could turn into one to one relationship as we would only have one admin to mangage the employees.
+
+4)One or many regular employees inspect/clean one or many rooms, and one or many rooms are cleaned/get inspected by one or many employees. 
+Again here we dont have any other options since we dont want to assign just one employee for the room to clean.
